@@ -1,5 +1,148 @@
+# Daftar karakter anime API
+Kode ini adalah REST API sederhana menggunakan Node.js dan Express.js untuk mengelola daftar karakter anime. API ini memungkinkan pengguna untuk menampilkan, mencari, menambah, mengupdate, dan menghapus karakter. Selain itu, API ini juga menyediakan fitur statistik terkait karakter anime yang ada dalam database sementara (array characters).
 
-# Project 3 PPL
+Server berjalan pada port 3000 dan menangani berbagai request HTTP, seperti GET, POST, PUT, dan DELETE. API ini juga dilengkapi dengan error handling dan fitur tambahan seperti sorting, filtering, dan pagination dalam pencarian karakter.
+
+# Fitur Utama
+API ini memiliki beberapa fitur utama, yaitu:
+
+### Manajemen Karakter Anime
+    GET /characters → Menampilkan semua karakter yang tersedia.
+    GET /characters/:id → Mengambil detail karakter berdasarkan ID.
+    POST /characters → Menambahkan karakter baru ke daftar.
+    PUT /characters/:id → Mengupdate karakter berdasarkan ID.
+    DELETE /characters/:id → Menghapus karakter berdasarkan ID.
+    POST /characters/bulk → Menambahkan banyak karakter sekaligus.
+    DELETE /characters → Menghapus beberapa karakter berdasarkan array ID.
+### Pencarian & Filter
+    GET /characters/search → Mencari karakter berdasarkan nama, anime, atau kekuatan.
+    Fitur tambahan pada pencarian:
+    Sorting: (?sort=name:asc atau ?sort=anime:desc)
+    Pagination: (?limit=5 untuk membatasi jumlah hasil)
+### Statistik Karakter
+    GET /stats → Mengembalikan statistik, seperti:
+    Total karakter.
+    Jumlah anime unik.
+    Distribusi karakter berdasarkan anime dan kekuatan.
+    Anime yang paling banyak muncul.
+### Error Handling & Middleware
+    Middleware menangani error global (500 Internal Server Error).
+    uncaughtException untuk menangani error tak terduga agar server tetap berjalan.
+
+# Penggunaan API
+Berikut adalah beberapa contoh penggunaan API dengan Postman atau cURL.
+## Mendapatkan Semua Karakter
+### Request
+    GET /characters
+### Response
+    {
+      "data": [
+        {
+          "id": 1,
+          "name": "Naruto Uzumaki",
+          "anime": "Naruto",
+          "power": "Nine-Tails Chakra"
+        },
+        {
+          "id": 2,
+          "name": "Monkey D. Luffy",
+          "anime": "One Piece",
+          "power": "Gum-Gum Devil Fruit"
+        }
+      ]
+    }
+
+## Mencari Karakter dengan Filter
+### Request
+    GET /characters/search?name=Naruto
+### Response 
+    {
+      "count": 1,
+      "data": [
+        {
+          "id": 1,
+          "name": "Naruto Uzumaki",
+          "anime": "Naruto",
+          "power": "Nine-Tails Chakra"
+        }
+      ]
+    }
+## Menambahkan Karakter Baru
+### Request 
+    POST /characters
+    Content-Type: application/json
+### Body 
+    {
+      "name": "Goku",
+      "anime": "Dragon Ball",
+      "power": "Super Saiyan"
+    }
+
+### Response 
+    {
+      "message": "Character created successfully",
+      "data": {
+        "id": 3,
+        "name": "Goku",
+        "anime": "Dragon Ball",
+        "power": "Super Saiyan"
+      }
+    }
+
+## Mengupdate Karakter
+### Request
+    PUT /characters/3
+    Content-Type: application/json
+### Body
+    {
+      "power": "Ultra Instinct"
+    }
+### Response 
+    {
+      "message": "Character updated successfully",
+      "data": {
+        "id": 3,
+        "name": "Goku",
+        "anime": "Dragon Ball",
+        "power": "Ultra Instinct"
+      }
+    }
+## Menghapus Karakter
+### Request
+      DELETE /characters/3
+### Response 
+    {
+      "message": "Character deleted successfully"
+    }
+
+## Mendapatkan Statistik Karakter
+### Request
+    GET /stats
+### Response
+    {
+      "data": {
+        "totalCharacters": 2,
+        "animeCount": 2,
+        "charactersByAnime": {
+          "Naruto": 1,
+          "One Piece": 1
+        },
+        "powerDistribution": {
+          "Nine-Tails Chakra": 1,
+          "Gum-Gum Devil Fruit": 1
+        },
+        "mostPopularAnime": "Naruto"
+      }
+    }
+    
+
+# Kesimpulan 
+API ini adalah RESTful API sederhana yang bisa digunakan untuk mengelola data karakter anime. Dengan fitur CRUD, pencarian, filtering, sorting, pagination, dan statistik, API ini cukup fleksibel untuk proyek latihan atau sebagai dasar untuk pengembangan lebih lanjut. 🚀
+
+_____________________________________________________________________________________________________________
+
+
+## Project 3 PPL
 
 ## Sistem API Sederhana
 
